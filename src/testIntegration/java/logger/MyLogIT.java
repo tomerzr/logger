@@ -14,7 +14,7 @@ public class MyLogIT {
     public void oneLineDefault() throws IOException, InterruptedException {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
         new File("myLogFile.txt").delete();
-        Process process = Runtime.getRuntime().exec("java -cp target\\*  logger.MyLog aaa");
+        Process process = Runtime.getRuntime().exec("java -cp target\\.  logger.MyLog aaa");
         process.waitFor();
         try (BufferedReader br = new BufferedReader(new FileReader("myLogFile.txt"))) {
             assert br.readLine().contains("INFO aaa");
@@ -27,9 +27,9 @@ public class MyLogIT {
     public void twoLines() throws IOException, InterruptedException {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
         new File("myLogFile.txt").delete();
-        Process process = Runtime.getRuntime().exec("java -cp target\\*  logger.MyLog INFO aaa");
+        Process process = Runtime.getRuntime().exec("java -cp target\\.  logger.MyLog INFO aaa");
         process.waitFor();
-        process = Runtime.getRuntime().exec("java -cp target\\*  logger.MyLog INFO bbb");
+        process = Runtime.getRuntime().exec("java -cp target\\.  logger.MyLog INFO bbb");
         process.waitFor();
         try (BufferedReader br = new BufferedReader(new FileReader("myLogFile.txt"))) {
             assert br.readLine().contains("INFO aaa");
@@ -43,7 +43,7 @@ public class MyLogIT {
     public void oneLineAlias_e() throws IOException, InterruptedException {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
         new File("myLogFile.txt").delete();
-        Process process = Runtime.getRuntime().exec("java -cp target\\*  logger.MyLog e aaa");
+        Process process = Runtime.getRuntime().exec("java -cp target\\.  logger.MyLog e aaa");
         process.waitFor();
         try (BufferedReader br = new BufferedReader(new FileReader("myLogFile.txt"))) {
             assert br.readLine().contains("ERROR aaa");
@@ -56,7 +56,7 @@ public class MyLogIT {
     public void oneLineAlias_E() throws IOException, InterruptedException {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
         new File("myLogFile.txt").delete();
-        Process process = Runtime.getRuntime().exec("java -cp target\\*  logger.MyLog E aaa");
+        Process process = Runtime.getRuntime().exec("java -cp target\\.  logger.MyLog E aaa");
         process.waitFor();
         try (BufferedReader br = new BufferedReader(new FileReader("myLogFile.txt"))) {
             assert br.readLine().contains("ERROR aaa");
@@ -69,7 +69,7 @@ public class MyLogIT {
     public void oneLineNewLevel() throws IOException, InterruptedException {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
         new File("myLogFile.txt").delete();
-        Process process = Runtime.getRuntime().exec("java -cp target\\*  logger.MyLog abc aaa");
+        Process process = Runtime.getRuntime().exec("java -cp target\\.  logger.MyLog abc aaa");
         process.waitFor();
         try (BufferedReader br = new BufferedReader(new FileReader("myLogFile.txt"))) {
             assert br.readLine().contains("abc aaa");
