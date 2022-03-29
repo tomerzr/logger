@@ -24,7 +24,7 @@ public class MyLog {
 
     private static void setConfiguration() {
         System.out.println(System.getProperty("user.dir"));
-        fileName = System.getProperty("user.dir")+ File.separator+"myLogFile.txt";
+        fileName = System.getProperty("user.dir")+File.separator+"target" +File.separator+"myLogFile.txt";
         System.out.println("setConfiguration"+fileName);
 
         String dateFormatPattern = "yyyy-MM-dd HH:mm:ss.SSS";
@@ -68,7 +68,7 @@ public class MyLog {
 
             }
 
-            File directoryPath = new File(System.getProperty("user.dir"));
+            File directoryPath = new File(System.getProperty("user.dir")+File.separator+"target" );
             //List of all files and directories
             String contents[] = directoryPath.list();
             System.out.println("contents"+Arrays.toString(contents));
