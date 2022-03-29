@@ -70,6 +70,30 @@ public class MyLogIT {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
     }
 
+    @Test
+    public void version() throws IOException, InterruptedException {
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+        new File(System.getProperty("user.dir")+ File.separator+"myLogFile.txt").delete();
+        execCommand("java -version");
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+    }
+
+    @Test
+    public void abc() throws IOException, InterruptedException {
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+        new File(System.getProperty("user.dir")+ File.separator+"myLogFile.txt").delete();
+        execCommand("abc");
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+    }
+
+    @Test
+    public void abc2() throws IOException, InterruptedException {
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+        new File(System.getProperty("user.dir")+ File.separator+"myLogFile.txt").delete();
+        execCommand("sh java -cp \""+System.getProperty("user.dir")+ File.separator+"target"+File.separator+"logger-1.0-SNAPSHOT.jar\"  logger.MyLog e aaa");
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+    }
+
     private void execCommand(String command) throws IOException, InterruptedException {
         System.out.println("execCommand"+command);
         Process process = Runtime.getRuntime().exec(command);
