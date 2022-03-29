@@ -155,7 +155,7 @@ public class MyLogIT {
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")+File.separator+"logger"+ File.separator+"myLogFile.txt"))) {
-            assert br.readLine().contains("e aaa");
+            assert br.readLine().contains("ERROR aaa");
             assert br.readLine() == null;
         }
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
@@ -166,11 +166,21 @@ public class MyLogIT {
     public void proxx1() throws IOException, InterruptedException {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
 
+        execProcessBuilder("java -cp \"target"+File.separator+"logger-1.0-SNAPSHOT.jar\"  logger.MyLog e aaa");
+
+        try (BufferedReader br = new BufferedReader(new FileReader("logger"+ File.separator+"myLogFile.txt"))) {
+            assert br.readLine().contains("ERROR aaa");
+            assert br.readLine() == null;
+        }
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+    }
+
+    private void execProcessBuilder(String command) throws IOException, InterruptedException {
         ProcessBuilder builder = new ProcessBuilder();
 
-        builder.command("sh", "-c", "java -cp \"target"+File.separator+"logger-1.0-SNAPSHOT.jar\"  logger.MyLog e aaa");
+        builder.command("sh", "-c", command);
 
-        builder.directory(new File(System.getProperty("user.dir")));
+        //builder.directory(new File(System.getProperty("user.dir")));
         Process process = builder.start();
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
         BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
@@ -185,14 +195,7 @@ public class MyLogIT {
         while ((s = stdError.readLine()) != null) {
             System.out.println(s);
         }
-
-        try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")+File.separator+"logger"+ File.separator+"myLogFile.txt"))) {
-            assert br.readLine().contains("e aaa");
-            assert br.readLine() == null;
-        }
-        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
     }
-
 
 
     @Test

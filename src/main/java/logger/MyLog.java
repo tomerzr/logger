@@ -32,6 +32,12 @@ public class MyLog {
         fileName = "logger" +File.separator+"myLogFile.txt";
         System.out.println("setConfiguration"+fileName);
 
+        File parent = new File(fileName).getParentFile();
+
+        if (!parent.exists()){
+            parent.mkdirs();
+        }
+
         String dateFormatPattern = "yyyy-MM-dd HH:mm:ss.SSS";
         dateFormat = new SimpleDateFormat(dateFormatPattern);
         String mapLevelSting = ":INFO,D:DEBUG,I:INFO,W:WARN,E:ERROR,F:FATAL";
@@ -56,11 +62,7 @@ public class MyLog {
         System.out.println("writeToLog");
 
         try {
-            File parent = new File(fileName).getParentFile();
 
-            if (!parent.exists()){
-                parent.mkdirs();
-            }
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
             writer.write(dateFormat.format(System.currentTimeMillis()));
