@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Map;
 
 public class MyLog {
@@ -18,6 +19,8 @@ public class MyLog {
     private static Map<String, String> levelAlias;
 
     public static void main(String[] args) {
+        System.out.println("main"+ System.getProperty("user.dir"));
+        System.out.println("args"+Arrays.toString(args));
         setConfiguration();
         writeToLog(args);
     }
@@ -56,6 +59,7 @@ public class MyLog {
             writer.write(System.lineSeparator());
             writer.flush();
         } catch (IOException e) {
+            System.out.println("IOException"+e);
             e.printStackTrace();
         }
     }
