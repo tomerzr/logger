@@ -23,8 +23,9 @@ public class MyLog {
     }
 
     private static void setConfiguration() {
-        System.out.println(System.getProperty("user.dir"));
-        fileName = System.getProperty("user.dir")+File.separator+"target" +File.separator+"myLogFile.txt";
+       // System.out.println(System.getProperty("user.dir"));
+       // fileName = System.getProperty("user.dir")+File.separator+"target" +File.separator+"myLogFile.txt";
+        fileName = "logger" +File.separator+"myLogFile.txt";
         System.out.println("setConfiguration"+fileName);
 
         String dateFormatPattern = "yyyy-MM-dd HH:mm:ss.SSS";
@@ -60,18 +61,18 @@ public class MyLog {
             writer.write(System.lineSeparator());
             writer.flush();
             writer.close();
-            System.out.println("writeToLog2");
+//            System.out.println("writeToLog2");
 
-            try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-
-                System.out.println("br"+ br.readLine());
-
-            }
-
-            File directoryPath = new File(System.getProperty("user.dir")+File.separator+"target" );
-            //List of all files and directories
-            String contents[] = directoryPath.list();
-            System.out.println("contents"+Arrays.toString(contents));
+//            try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+//
+//                System.out.println("br"+ br.readLine());
+//
+//            }
+//
+//            File directoryPath = new File(System.getProperty("user.dir")+File.separator+"target" );
+//            //List of all files and directories
+//            String contents[] = directoryPath.list();
+//            System.out.println("contents"+Arrays.toString(contents));
 
         } catch (IOException e) {
             System.out.println("IOException"+e);
