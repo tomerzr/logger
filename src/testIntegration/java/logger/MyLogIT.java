@@ -25,9 +25,9 @@ public class MyLogIT {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
         System.out.println(System.getProperty("user.dir")+ File.separator+"myLogFile.txt");
         new File(System.getProperty("user.dir")+ File.separator+"myLogFile.txt").delete();
-        System.out.println("java -cp \"target"+File.separator+"*\"  logger.MyLog INFO aaa");
+        System.out.println("java -cp "+System.getProperty("user.dir")+ File.separator+"\"target"+File.separator+"*\"  logger.MyLog INFO aaa");
 
-        Process process = Runtime.getRuntime().exec("java -cp \"target"+File.separator+"*\"  logger.MyLog INFO aaa");
+        Process process = Runtime.getRuntime().exec("java -cp "+System.getProperty("user.dir")+ File.separator+"\"target"+File.separator+"*\"  logger.MyLog INFO aaa");
         process.waitFor();
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
         BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
