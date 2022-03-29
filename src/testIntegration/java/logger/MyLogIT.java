@@ -23,7 +23,10 @@ public class MyLogIT {
     @Test
     public void twoLines() throws IOException, InterruptedException {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+        System.out.println(System.getProperty("user.dir")+ File.separator+"myLogFile.txt");
         new File(System.getProperty("user.dir")+ File.separator+"myLogFile.txt").delete();
+        System.out.println("java -cp \"target"+File.separator+"*\"  logger.MyLog INFO aaa");
+
         Process process = Runtime.getRuntime().exec("java -cp \"target"+File.separator+"*\"  logger.MyLog INFO aaa");
         process.waitFor();
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
