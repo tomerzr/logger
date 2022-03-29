@@ -111,7 +111,7 @@ public class MyLogIT {
 
             builder.command("sh", "-c", "java -cp \""+System.getProperty("user.dir")+ File.separator+"target"+File.separator+"logger-1.0-SNAPSHOT.jar\"  logger.MyLog e aaa");
 
-        builder.directory(new File(System.getProperty("user.home")));
+        builder.directory(new File(System.getProperty("user.dir")));
         Process process = builder.start();
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
         BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
