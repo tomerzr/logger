@@ -3,6 +3,7 @@ package logger;
 import utility.Convert;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -22,7 +23,8 @@ public class MyLog {
     }
 
     private static void setConfiguration() {
-        fileName = "myLogFile.txt";
+        System.out.println(System.getProperty("user.dir"));
+        fileName = System.getProperty("user.dir")+ File.separator+"myLogFile.txt";
         String dateFormatPattern = "yyyy-MM-dd HH:mm:ss.SSS";
         dateFormat = new SimpleDateFormat(dateFormatPattern);
         String mapLevelSting = ":INFO,D:DEBUG,I:INFO,W:WARN,E:ERROR,F:FATAL";

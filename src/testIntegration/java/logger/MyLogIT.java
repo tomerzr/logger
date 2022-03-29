@@ -13,10 +13,10 @@ public class MyLogIT {
     @Test
     public void oneLineDefault() throws IOException, InterruptedException {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
-        new File("myLogFile.txt").delete();
+        new File(System.getProperty("user.dir")+ File.separator+"myLogFile.txt").delete();
         Process process = Runtime.getRuntime().exec("java -cp \"target"+File.separator+"*\"  logger.MyLog aaa");
         process.waitFor();
-        try (BufferedReader br = new BufferedReader(new FileReader("myLogFile.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")+ File.separator+"myLogFile.txt"))) {
             assert br.readLine().contains("INFO aaa");
             assert br.readLine() == null;
         }
@@ -26,12 +26,12 @@ public class MyLogIT {
     @Test
     public void twoLines() throws IOException, InterruptedException {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
-        new File("myLogFile.txt").delete();
+        new File(System.getProperty("user.dir")+ File.separator+"myLogFile.txt").delete();
         Process process = Runtime.getRuntime().exec("java -cp \"target"+File.separator+"*\"  logger.MyLog INFO aaa");
         process.waitFor();
         process = Runtime.getRuntime().exec("java -cp \"target"+File.separator+"*\"  logger.MyLog INFO bbb");
         process.waitFor();
-        try (BufferedReader br = new BufferedReader(new FileReader("myLogFile.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")+ File.separator+"myLogFile.txt"))) {
             assert br.readLine().contains("INFO aaa");
             assert br.readLine().contains("INFO bbb");
             assert br.readLine() == null;
@@ -42,10 +42,10 @@ public class MyLogIT {
     @Test
     public void oneLineAlias_e() throws IOException, InterruptedException {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
-        new File("myLogFile.txt").delete();
+        new File(System.getProperty("user.dir")+ File.separator+"myLogFile.txt").delete();
         Process process = Runtime.getRuntime().exec("java -cp \"target"+File.separator+"*\"  logger.MyLog e aaa");
         process.waitFor();
-        try (BufferedReader br = new BufferedReader(new FileReader("myLogFile.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")+ File.separator+"myLogFile.txt"))) {
             assert br.readLine().contains("ERROR aaa");
             assert br.readLine() == null;
         }
@@ -55,10 +55,10 @@ public class MyLogIT {
     @Test
     public void oneLineAlias_E() throws IOException, InterruptedException {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
-        new File("myLogFile.txt").delete();
+        new File(System.getProperty("user.dir")+ File.separator+"myLogFile.txt").delete();
         Process process = Runtime.getRuntime().exec("java -cp \"target"+File.separator+"*\"  logger.MyLog E aaa");
         process.waitFor();
-        try (BufferedReader br = new BufferedReader(new FileReader("myLogFile.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")+ File.separator+"myLogFile.txt"))) {
             assert br.readLine().contains("ERROR aaa");
             assert br.readLine() == null;
         }
@@ -68,10 +68,10 @@ public class MyLogIT {
     @Test
     public void oneLineNewLevel() throws IOException, InterruptedException {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
-        new File("myLogFile.txt").delete();
+        new File(System.getProperty("user.dir")+ File.separator+"myLogFile.txt").delete();
         Process process = Runtime.getRuntime().exec("java -cp \"target"+File.separator+"*\"  logger.MyLog abc aaa");
         process.waitFor();
-        try (BufferedReader br = new BufferedReader(new FileReader("myLogFile.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")+ File.separator+"myLogFile.txt"))) {
             assert br.readLine().contains("abc aaa");
             assert br.readLine() == null;
         }
