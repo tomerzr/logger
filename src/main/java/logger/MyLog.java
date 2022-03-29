@@ -62,6 +62,7 @@ public class MyLog {
             writer.write(msg);
             writer.write(System.lineSeparator());
             writer.flush();
+            writer.close();
             System.out.println("writeToLog2");
 
         } catch (IOException e) {
