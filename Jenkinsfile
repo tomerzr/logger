@@ -1,20 +1,48 @@
 pipeline {
     agent any
-
+    tools {
+        maven 'mvn3.6.3'
+        jdk 'jdk9'
+    }
     stages {
         stage('Build') {
             steps {
                 echo 'Building..'
+                sh 'mvn clean'
+                sh 'mvn compile'
             }
         }
-        stage('Test') {
+        stage('UnitTest') {
             steps {
-                echo 'Testing..'
+                echo 'UnitTesting..'
+                sh 'mvn test'
             }
         }
-        stage('Deploy') {
+        stage('Package') {
             steps {
-                echo 'Deploying....'
+                echo 'packaging....'
+                sh 'mvn package -DskipTests'
+            }
+        }
+        stage('IntegrationTest') {
+            steps {
+                echo 'verifying....'
+                sh 'mvn verify -DskipTests'
+            }
+        }
+        stage('CodeCoverage') {
+            steps {
+                echo 'CodeCoverage....'
+            }
+        }
+        stage('StaticCodeAnalysis') {
+            steps {
+                echo 'StaticCodeAnalysis....'
+            }
+        }
+        stage('UploadArtifact') {
+            steps {
+                echo 'UploadArtifact....'
             }
         }
     }
