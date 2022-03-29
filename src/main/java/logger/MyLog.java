@@ -3,6 +3,9 @@ package logger;
 import utility.Convert;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Map;
@@ -25,6 +28,7 @@ public class MyLog {
     private static void setConfiguration() {
        // System.out.println(System.getProperty("user.dir"));
        // fileName = System.getProperty("user.dir")+File.separator+"target" +File.separator+"myLogFile.txt";
+//        fileName = System.getProperty("user.dir")+File.separator+"logger" +File.separator+"myLogFile.txt";
         fileName = "logger" +File.separator+"myLogFile.txt";
         System.out.println("setConfiguration"+fileName);
 
@@ -52,6 +56,12 @@ public class MyLog {
         System.out.println("writeToLog");
 
         try {
+            File parent = new File(fileName).getParentFile();
+
+            if (!parent.exists()){
+                parent.mkdirs();
+            }
+
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
             writer.write(dateFormat.format(System.currentTimeMillis()));
             writer.write(space);
