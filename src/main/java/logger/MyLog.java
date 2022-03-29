@@ -2,10 +2,7 @@ package logger;
 
 import utility.Convert;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Map;
@@ -50,7 +47,7 @@ public class MyLog {
         writeToLog(defaultLevelKey, msg);
     }
 
-    private static void writeToLog(String level, String msg) {
+    private static void writeToLog(String level, String msg)  {
         System.out.println("writeToLog");
 
         try {
@@ -65,10 +62,19 @@ public class MyLog {
             writer.close();
             System.out.println("writeToLog2");
 
+            try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+
+                System.out.println("br"+ br.readLine());
+
+            }
         } catch (IOException e) {
             System.out.println("IOException"+e);
             e.printStackTrace();
         }
+
+
+
+
     }
 
 }
