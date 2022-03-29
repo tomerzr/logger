@@ -2,10 +2,7 @@ package logger;
 
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.Timestamp;
 
 public class MyLogIT {
@@ -29,6 +26,16 @@ public class MyLogIT {
         new File(System.getProperty("user.dir")+ File.separator+"myLogFile.txt").delete();
         Process process = Runtime.getRuntime().exec("java -cp \"target"+File.separator+"*\"  logger.MyLog INFO aaa");
         process.waitFor();
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+        System.out.println("Here is the standard output of the command:\n");
+        String s = null;
+        while ((s = stdInput.readLine()) != null) {
+            System.out.println(s);
+        }
+        while ((s = stdError.readLine()) != null) {
+            System.out.println(s);
+        }
         process = Runtime.getRuntime().exec("java -cp \"target"+File.separator+"*\"  logger.MyLog INFO bbb");
         process.waitFor();
         try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")+ File.separator+"myLogFile.txt"))) {
