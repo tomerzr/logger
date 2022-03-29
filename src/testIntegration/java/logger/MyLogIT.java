@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.io.*;
 import java.sql.Timestamp;
+import java.util.concurrent.Executors;
 
 public class MyLogIT {
 
@@ -94,12 +95,47 @@ public class MyLogIT {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
     }
 
+    @Test
+    public void ls() throws IOException, InterruptedException {
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+        new File(System.getProperty("user.dir")+ File.separator+"myLogFile.txt").delete();
+        execCommand("ls");
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+    }
+
+    @Test
+    public void pro() throws IOException, InterruptedException {
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+
+        ProcessBuilder builder = new ProcessBuilder();
+
+            builder.command("sh", "-c", "java -cp \""+System.getProperty("user.dir")+ File.separator+"target"+File.separator+"logger-1.0-SNAPSHOT.jar\"  logger.MyLog e aaa");
+
+        builder.directory(new File(System.getProperty("user.home")));
+        Process process = builder.start();
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+         process.waitFor();
+        String s = null;
+        System.out.println("stdInput");
+        while ((s = stdInput.readLine()) != null) {
+            System.out.println(s);
+        }
+        System.out.println("stdError");
+        while ((s = stdError.readLine()) != null) {
+            System.out.println(s);
+        }
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+    }
+
     private void execCommand(String command) throws IOException, InterruptedException {
         System.out.println("execCommand"+command);
         Process process = Runtime.getRuntime().exec(command);
-        process.waitFor();
+
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
         BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+        process.waitFor();
         String s = null;
         System.out.println("stdInput");
         while ((s = stdInput.readLine()) != null) {
