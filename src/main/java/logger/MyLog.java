@@ -28,6 +28,8 @@ public class MyLog {
     private static void setConfiguration() {
         System.out.println(System.getProperty("user.dir"));
         fileName = System.getProperty("user.dir")+ File.separator+"myLogFile.txt";
+        System.out.println("setConfiguration"+fileName);
+
         String dateFormatPattern = "yyyy-MM-dd HH:mm:ss.SSS";
         dateFormat = new SimpleDateFormat(dateFormatPattern);
         String mapLevelSting = ":INFO,D:DEBUG,I:INFO,W:WARN,E:ERROR,F:FATAL";
@@ -49,6 +51,8 @@ public class MyLog {
     }
 
     private static void writeToLog(String level, String msg) {
+        System.out.println("writeToLog");
+
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
             writer.write(dateFormat.format(System.currentTimeMillis()));
@@ -58,6 +62,8 @@ public class MyLog {
             writer.write(msg);
             writer.write(System.lineSeparator());
             writer.flush();
+            System.out.println("writeToLog2");
+
         } catch (IOException e) {
             System.out.println("IOException"+e);
             e.printStackTrace();
