@@ -156,6 +156,33 @@ public class MyLogIT {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
     }
 
+
+    @Test
+    public void pwd() throws IOException, InterruptedException {
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+
+        ProcessBuilder builder = new ProcessBuilder();
+
+        builder.command("sh", "-c", "pwd");
+
+        builder.directory(new File(System.getProperty("user.dir")));
+        Process process = builder.start();
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+        process.waitFor();
+        String s = null;
+        System.out.println("stdInput");
+        while ((s = stdInput.readLine()) != null) {
+            System.out.println(s);
+        }
+        System.out.println("stdError");
+        while ((s = stdError.readLine()) != null) {
+            System.out.println(s);
+        }
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+    }
+
     private void execCommand(String command) throws IOException, InterruptedException {
         System.out.println("execCommand"+command);
         Process process = Runtime.getRuntime().exec(command);
