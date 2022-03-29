@@ -67,6 +67,12 @@ public class MyLog {
                 System.out.println("br"+ br.readLine());
 
             }
+
+            File directoryPath = new File(System.getProperty("user.dir"));
+            //List of all files and directories
+            String contents[] = directoryPath.list();
+            System.out.println("contents"+Arrays.toString(contents));
+
         } catch (IOException e) {
             System.out.println("IOException"+e);
             e.printStackTrace();
