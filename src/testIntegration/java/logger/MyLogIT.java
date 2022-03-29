@@ -104,6 +104,33 @@ public class MyLogIT {
     }
 
     @Test
+    public void shls() throws IOException, InterruptedException {
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+
+        ProcessBuilder builder = new ProcessBuilder();
+
+        builder.command("sh", "-c", "ls");
+
+        builder.directory(new File(System.getProperty("user.dir")));
+        Process process = builder.start();
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+        String s = null;
+        System.out.println("stdInput");
+        while ((s = stdInput.readLine()) != null) {
+            System.out.println(s);
+        }
+        System.out.println("stdError");
+        while ((s = stdError.readLine()) != null) {
+            System.out.println(s);
+        }
+        process.waitFor();
+
+        System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
+    }
+
+    @Test
     public void pro() throws IOException, InterruptedException {
         System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + new Timestamp(System.currentTimeMillis()));
 
